@@ -26,23 +26,31 @@ function initMap() {
       var directionsService = new google.maps.DirectionsService();
       var directionsDisplay = new google.maps.DirectionsRenderer();
 
-      function createMarker(i, lat, lng){
-        var marker= new google.maps.Marker({
-          map:map,
-          position:new google.maps.LatLng(lat, lng)
+      function createMarker(i, lat, lng) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: new google.maps.LatLng(lat, lng)
         });
-          
 
         google.maps.event.addListener(marker, "click", function() {
           directionsDisplay.setMap(map);
 
+          var lati = data.features[i].geometry.coordinates[1];
+          var long = data.features[i].geometry.coordinates[0];
+
           var link =
             "https://www.google.com/maps/search/?api=1&query=" +
-            lat + "," + lng;
+            lati +
+            "," +
+            long;
           var contentString =
             "<div><p>" +
             data.features[i].properties.location_description +
-            '</div><div><a href="' +
+            "</div><div><p>Latitude: " +
+            lati +
+            "</p></div><div><p>Longitude: " +
+            long +
+            '</p></div><div><a href="' +
             link +
             '" target="_blank">Open in Google Maps</a></p></div>';
           console.log(contentString);
@@ -53,12 +61,8 @@ function initMap() {
 
           infowindow.open(map, marker);
 
-          console.log(
-            lat,lng
-          );
-          var dest = new google.maps.LatLng(
-            lat, lng
-          );
+          console.log(lat, lng);
+          var dest = new google.maps.LatLng(lat, lng);
           var request = {
             origin: orig,
             destination: dest,
@@ -72,10 +76,9 @@ function initMap() {
       }
 
       for (let i = 0; i < data.features.length; i++) {
-        var  lat= data.features[i].geometry.coordinates[1];
-        var lng= data.features[i].geometry.coordinates[0];
+        var lat = data.features[i].geometry.coordinates[1];
+        var lng = data.features[i].geometry.coordinates[0];
         createMarker(i, lat, lng);
-          
       }
     })
     .catch(err => {
