@@ -1,4 +1,4 @@
-var map, infoWindow;
+var map, infoWindow, orig;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 10.75,
@@ -14,7 +14,6 @@ function initMap() {
     .then(data => {
       // Work with JSON data here
 
-      var orig;
       navigator.geolocation.getCurrentPosition(function(position) {
         orig = {
           lat: position.coords.latitude,
