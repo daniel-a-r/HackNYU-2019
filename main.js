@@ -29,7 +29,7 @@ function initMap() {
         var marker = new google.maps.Marker({
           position: latlng,
           map: map,
-          title: "Zoom?"
+          title: "Litter Basket"
         });
 
         var directionsService = new google.maps.DirectionsService();
