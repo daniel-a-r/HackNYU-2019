@@ -67,7 +67,7 @@ function initMap() {
             data.features[i].properties.location_description +
             '</div><div><a href="' +
             link +
-            '">Open in Google Maps</a></p></div>';
+            '" target="_blank">Open in Google Maps</a></p></div>';
           console.log(contentString);
 
           var infowindow = new google.maps.InfoWindow({
