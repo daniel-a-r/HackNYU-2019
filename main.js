@@ -20,35 +20,13 @@ function initMap() {
           lng: position.coords.longitude
         };
       });
-      for (let i = 0; i < data.features.length; i++) {
-        /*var link =
-          "https://www.google.com/maps/search/?api=1&query=" +
-          data.features[i].geometry.coordinates[1] +
-          "," +
-          data.features[i].geometry.coordinates[0];
-        var contentString =
-          "<div><p>" +
-          data.features[i].properties.location_description +
-          '</div><div><a href="' +
-          link +
-          '">Open in Google Maps</a></p></div>';
-        console.log(contentString);
 
-        /*var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });*/
-
-        var latlng = {
-          lat: data.features[i].geometry.coordinates[1],
-          lng: data.features[i].geometry.coordinates[0]
-        };
-
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          title: "Litter Basket"
+      function createMarker(i, lat, lng){
+        var marker= new google.maps.Marker({
+          map:map,
+          position:new google.maps.LatLng(lat, lng)
         });
-
+          
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -57,9 +35,7 @@ function initMap() {
 
           var link =
             "https://www.google.com/maps/search/?api=1&query=" +
-            data.features[i].geometry.coordinates[1] +
-            "," +
-            data.features[i].geometry.coordinates[0];
+            lat + "," + lng;
           var contentString =
             "<div><p>" +
             data.features[i].properties.location_description +
@@ -75,12 +51,10 @@ function initMap() {
           infowindow.open(map, marker);
 
           console.log(
-            data.features[i].geometry.coordinates[1],
-            data.features[i].geometry.coordinates[0]
+            lat,lng
           );
           var dest = new google.maps.LatLng(
-            data.features[i].geometry.coordinates[1],
-            data.features[i].geometry.coordinates[0]
+            lat, lng
           );
           var request = {
             origin: orig,
@@ -92,6 +66,13 @@ function initMap() {
               directionsDisplay.setDirections(result);
           });
         });
+      }
+
+      for (let i = 0; i < data.features.length; i++) {
+        var  lat= data.features[i].geometry.coordinates[1];
+        var lng= data.features[i].geometry.coordinates[0];
+        createMarker(i, lat, lng);
+          
       }
     })
     .catch(err => {
