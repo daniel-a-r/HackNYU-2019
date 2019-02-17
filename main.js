@@ -1,4 +1,4 @@
-var map, infoWindow;
+var map, infoWindow, orig;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 10.75,
@@ -14,7 +14,6 @@ function initMap() {
     .then(data => {
       // Work with JSON data here
 
-      var orig;
       navigator.geolocation.getCurrentPosition(function(position) {
         orig = {
           lat: position.coords.latitude,
@@ -22,7 +21,7 @@ function initMap() {
         };
       });
       for (let i = 0; i < data.features.length; i++) {
-        var link =
+        /*var link =
           "https://www.google.com/maps/search/?api=1&query=" +
           data.features[i].geometry.coordinates[1] +
           "," +
@@ -38,7 +37,6 @@ function initMap() {
         /*var infowindow = new google.maps.InfoWindow({
           content: contentString
         });*/
-        //var infowindow = new google.maps.InfoWindow();
 
         var latlng = {
           lat: data.features[i].geometry.coordinates[1],
@@ -50,15 +48,38 @@ function initMap() {
           map: map,
           title: "Litter Basket"
         });
+      
 
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
-        google.maps.event.addListener(marker, "click", function() {
-          /*infowindow.setContent(contentString);
-          infowindow.open(map, marker);*/
 
+        google.maps.event.addListener(marker, "click", function() {
           directionsDisplay.setMap(map);
 
+          var link =
+          "https://www.google.com/maps/search/?api=1&query=" +
+          data.features[i].geometry.coordinates[1] +
+          "," +
+          data.features[i].geometry.coordinates[0];
+        var contentString =
+          "<div><p>" +
+          data.features[i].properties.location_description +
+          '</div><div><a href="' +
+          link +
+          '">Open in Google Maps</a></p></div>';
+        console.log(contentString);
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        infowindow.open(map, marker);
+
+
+          console.log(
+            data.features[i].geometry.coordinates[1],
+            data.features[i].geometry.coordinates[0]
+          );
           var dest = new google.maps.LatLng(
             data.features[i].geometry.coordinates[1],
             data.features[i].geometry.coordinates[0]
@@ -92,24 +113,7 @@ function initMap() {
           lng: position.coords.longitude
         };
 
-        userMarker.setPosition(pos);
-        map.setCenter(pos);
-        map.setZoom(17);
-      },
-      function() {
-        handleLocationError(true);
-      }
-    );
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false);
-  }
-
-  /*infoWindow = new google.maps.InfoWindow();
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(
-      function(position) {
-        var pos = {
+        orig= {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
