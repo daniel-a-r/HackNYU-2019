@@ -14,11 +14,11 @@ function initMap() {
     .then(data => {
       // Work with JSON data here
       var orig;
-      navigator.geolocation.getCurrentPosition(function(position){
+      navigator.geolocation.getCurrentPosition(function(position) {
         orig = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
       });
       for (let i = 0; i < data.features.length; i++) {
         var latlng = {
@@ -31,7 +31,7 @@ function initMap() {
           map: map,
           title: "Zoom?"
         });
-        
+
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
         google.maps.event.addListener(marker, "click", function() {
@@ -42,15 +42,18 @@ function initMap() {
             data.features[i].geometry.coordinates[1],
             data.features[i].geometry.coordinates[0]
           );
-          var dest = new google.maps.LatLng(data.features[i].geometry.coordinates[1], data.features[i].geometry.coordinates[0]);
+          var dest = new google.maps.LatLng(
+            data.features[i].geometry.coordinates[1],
+            data.features[i].geometry.coordinates[0]
+          );
           var request = {
-            origin: orig, 
+            origin: orig,
             destination: dest,
-            travelMode: 'WALKING'
+            travelMode: "WALKING"
           };
-          directionsService.route(request, function (result, status) {
+          directionsService.route(request, function(result, status) {
             if (status == google.maps.DirectionsStatus.OK)
-                directionsDisplay.setDirections(result);
+              directionsDisplay.setDirections(result);
           });
         });
       }
