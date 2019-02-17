@@ -19,7 +19,12 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        map.setCenter(orig);
+        map.setZoom(17);
       });
+
+      var directionsService = new google.maps.DirectionsService();
+      var directionsDisplay = new google.maps.DirectionsRenderer();
 
       function createMarker(i, lat, lng){
         var marker= new google.maps.Marker({
@@ -27,8 +32,6 @@ function initMap() {
           position:new google.maps.LatLng(lat, lng)
         });
           
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
 
         google.maps.event.addListener(marker, "click", function() {
           directionsDisplay.setMap(map);
@@ -98,8 +101,6 @@ function initMap() {
         };
 
         userMarker.setPosition(pos);
-        map.setCenter(pos);
-        map.setZoom(17);
       },
       function() {
         handleLocationError(true);
