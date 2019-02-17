@@ -25,7 +25,11 @@ function initMap() {
     });
 
   infoWindow = new google.maps.InfoWindow();
+<<<<<<< Updated upstream
 
+=======
+ 
+>>>>>>> Stashed changes
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
@@ -76,7 +80,7 @@ let location = () => {
   console.log(map.data.features.geometry.coordinates[0]);
   console.log(map.data.features.geometry.coordinates[1]);
 }
-*/
+
 
 /*
 map.data.addListener('click') =>  {
