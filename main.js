@@ -22,7 +22,42 @@ function initMap() {
         };
       });
       for (let i = 0; i < data.features.length; i++) {
-        var link =
+        /*var link =
+          "https://www.google.com/maps/search/?api=1&query=" +
+          data.features[i].geometry.coordinates[1] +
+          "," +
+          data.features[i].geometry.coordinates[0];
+        var contentString =
+          "<div><p>" +
+          data.features[i].properties.location_description +
+          '</div><div><a href="' +
+          link +
+          '">Open in Google Maps</a></p></div>';
+        console.log(contentString);
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });*/
+
+        var latlng = {
+          lat: data.features[i].geometry.coordinates[1],
+          lng: data.features[i].geometry.coordinates[0]
+        };
+
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: "Litter Basket"
+        });
+      
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+
+        google.maps.event.addListener(marker, "click", function() {
+          directionsDisplay.setMap(map);
+
+          var link =
           "https://www.google.com/maps/search/?api=1&query=" +
           data.features[i].geometry.coordinates[1] +
           "," +
@@ -39,23 +74,8 @@ function initMap() {
           content: contentString
         });
 
-        var latlng = {
-          lat: data.features[i].geometry.coordinates[1],
-          lng: data.features[i].geometry.coordinates[0]
-        };
+        infowindow.open(map, marker);
 
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          title: "Litter Basket"
-        });
-
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
-        google.maps.event.addListener(marker, "click", function() {
-          infowindow.open(map, marker);
-
-          directionsDisplay.setMap(map);
 
           console.log(
             data.features[i].geometry.coordinates[1],
@@ -86,6 +106,11 @@ function initMap() {
     navigator.geolocation.watchPosition(
       function(position) {
         var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        orig= {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
