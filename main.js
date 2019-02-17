@@ -99,7 +99,7 @@ function initMap() {
     });
 
   userMarker = new google.maps.Marker({
-    icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    icon: "green-dot.png",
     map: map
   });
 
