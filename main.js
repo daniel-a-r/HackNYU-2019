@@ -30,7 +30,7 @@ function initMap() {
           position: latlng,
           map: map,
           title: "Litter Basket"
-      });
+        });
 
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -95,16 +95,3 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
-
-// gets all the coordinates of the trash can GEOJson
-getAllCoordinates = () => {
-  fetch("https://s3.amazonaws.com/litter-basket/data.json")
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => {
-      console.log("Error failed to get data", err);
-    });
-};
-
