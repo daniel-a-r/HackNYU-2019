@@ -32,9 +32,10 @@ function initMap() {
           title: "Zoom?"
         });
         
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
         google.maps.event.addListener(marker, "click", function() {
-          var directionsService = new google.maps.DirectionsService();
-          var directionsDisplay = new google.maps.DirectionsRenderer();
+          directionsDisplay.setMap(null);
           directionsDisplay.setMap(map);
 
           console.log(
