@@ -13,23 +13,24 @@ function initMap() {
     })
     .then(data => {
       // Work with JSON data here
-      for (let i = 0; i < data.features.length; i++){
-
-        var latlng = {lat: data.features[i].geometry.coordinates[1], lng: data.features[i].geometry.coordinates[0]};
+      for (let i = 0; i < data.features.length; i++) {
+        var latlng = {
+          lat: data.features[i].geometry.coordinates[1],
+          lng: data.features[i].geometry.coordinates[0]
+        };
 
         var marker = new google.maps.Marker({
-          position: latlng, 
+          position: latlng,
           map: map,
-          title: 'Zoom?'
+          title: "Zoom?"
         });
 
-        marker.addListener('click', function(){
-          console.log("yeah boiiiiii");
-          var lat = marker.getPosition().lat();
-          var lng = marker.getPosition().lng();
-          console.log(lat, lng);
+        google.maps.event.addListener(marker, "click", function() {
+          console.log(
+            data.features[i].geometry.coordinates[1],
+            data.features[i].geometry.coordinates[0]
+          );
         });
-
       }
     })
     .catch(err => {
