@@ -19,6 +19,8 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        map.setCenter(orig);
+        map.setZoom(17);
       });
       for (let i = 0; i < data.features.length; i++) {
         /*var link =
@@ -117,8 +119,6 @@ function initMap() {
         };
 
         userMarker.setPosition(pos);
-        map.setCenter(pos);
-        map.setZoom(17);
       },
       function() {
         handleLocationError(true);
