@@ -6,7 +6,6 @@ function initMap() {
   });
 
   // NOTE: This uses cross-domain XHR, and may not work on older browsers.
-  map.data.loadGeoJson("https://s3.amazonaws.com/litter-basket/data.json");
 
   fetch("https://s3.amazonaws.com/litter-basket/data.json")
     .then(response => {
@@ -14,22 +13,30 @@ function initMap() {
     })
     .then(data => {
       // Work with JSON data here
-      for (let i = 0; i < 10; i++)
-        console.log(
-          data.features[i].geometry.coordinates[1],
-          data.features[i].geometry.coordinates[0]
-        );
+      for (let i = 0; i < data.features.length; i++){
+
+        var latlng = {lat: data.features[i].geometry.coordinates[1], lng: data.features[i].geometry.coordinates[0]};
+
+        var marker = new google.maps.Marker({
+          position: latlng, 
+          map: map,
+          title: 'Zoom?'
+        });
+
+        marker.addListener('click', function(){
+          console.log("yeah boiiiiii");
+          var lat = marker.getPosition().lat();
+          var lng = marker.getPosition().lng();
+          console.log(lat, lng);
+        });
+
+      }
     })
     .catch(err => {
       console.log("Error failed to get data", err);
     });
 
   infoWindow = new google.maps.InfoWindow();
-<<<<<<< Updated upstream
-
-=======
- 
->>>>>>> Stashed changes
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
