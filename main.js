@@ -30,7 +30,7 @@ function initMap() {
           position: latlng,
           map: map,
           title: "Litter Basket"
-        });
+      });
 
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -63,7 +63,7 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.watchPosition(
       function(position) {
         var pos = {
           lat: position.coords.latitude,
