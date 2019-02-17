@@ -25,12 +25,18 @@ function initMap() {
           title: "Zoom?"
         });
 
+<<<<<<< Updated upstream
         google.maps.event.addListener(marker, "click", function() {
           console.log(
             data.features[i].geometry.coordinates[1],
             data.features[i].geometry.coordinates[0]
           );
         });
+=======
+        
+
+        
+>>>>>>> Stashed changes
       }
     })
     .catch(err => {
