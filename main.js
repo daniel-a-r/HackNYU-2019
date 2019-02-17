@@ -35,7 +35,6 @@ function initMap() {
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
         google.maps.event.addListener(marker, "click", function() {
-          directionsDisplay.setMap(null);
           directionsDisplay.setMap(map);
 
           console.log(
@@ -108,16 +107,4 @@ getAllCoordinates = () => {
       console.log("Error failed to get data", err);
     });
 };
-/*
-let location = () => {
-  console.log(map.data.features.geometry.coordinates[0]);
-  console.log(map.data.features.geometry.coordinates[1]);
-}
 
-
-/*
-map.data.addListener('click') =>  {
-  console.log(map.data.features.geometry.coordinates[0]);
-  console.log(map.data.features.geometry.coordinates[1]);
-}
-*/
