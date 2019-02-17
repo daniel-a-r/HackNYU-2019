@@ -20,7 +20,7 @@ function initMap() {
           lng: position.coords.longitude
         };
         map.setCenter(orig);
-        map.setZoom(17);
+        map.setZoom(18);
       });
 
       var directionsService = new google.maps.DirectionsService();
