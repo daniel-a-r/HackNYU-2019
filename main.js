@@ -48,7 +48,6 @@ function initMap() {
           map: map,
           title: "Litter Basket"
         });
-      
 
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -57,24 +56,23 @@ function initMap() {
           directionsDisplay.setMap(map);
 
           var link =
-          "https://www.google.com/maps/search/?api=1&query=" +
-          data.features[i].geometry.coordinates[1] +
-          "," +
-          data.features[i].geometry.coordinates[0];
-        var contentString =
-          "<div><p>" +
-          data.features[i].properties.location_description +
-          '</div><div><a href="' +
-          link +
-          '">Open in Google Maps</a></p></div>';
-        console.log(contentString);
+            "https://www.google.com/maps/search/?api=1&query=" +
+            data.features[i].geometry.coordinates[1] +
+            "," +
+            data.features[i].geometry.coordinates[0];
+          var contentString =
+            "<div><p>" +
+            data.features[i].properties.location_description +
+            '</div><div><a href="' +
+            link +
+            '">Open in Google Maps</a></p></div>';
+          console.log(contentString);
 
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
 
-        infowindow.open(map, marker);
-
+          infowindow.open(map, marker);
 
           console.log(
             data.features[i].geometry.coordinates[1],
@@ -113,33 +111,29 @@ function initMap() {
           lng: position.coords.longitude
         };
 
-        orig= {
+        orig = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent("Location found.");
-        infoWindow.open(map);
+        userMarker.setPosition(pos);
         map.setCenter(pos);
         map.setZoom(17);
       },
       function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+        handleLocationError(true);
       }
     );
   } else {
     // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }*/
+    handleLocationError(false);
+  }
 }
 
 function handleLocationError(browserHasGeolocation) {
-  //userMarker.setPosition(pos);
   alert(
     browserHasGeolocation
       ? "Error: The Geolocation service failed."
       : "Error: Your browser doesn't support geolocation."
   );
-  //currentPosMarker.open(map);
 }
